@@ -13,6 +13,7 @@ RUN groupadd --gid $USER_GID $USERNAME \
     && apt-get install -y sudo \
     && echo $USERNAME ALL=\(root\) NOPASSWD:ALL > /etc/sudoers.d/$USERNAME \
     && chmod 0440 /etc/sudoers.d/$USERNAME
+	
 
 # ********************************************************
 # * Anything else you want to do like clean up goes here *
@@ -26,5 +27,7 @@ RUN sudo apt update && sudo apt install curl -y \
       && sudo apt install git -y
 RUN bash -c "set -o pipefail; curl -LSs  https://raw.githubusercontent.com/pigfall/memo/master/go-install.sh | bash"
 RUN bash -c "set -o pipefail; curl -LSs https://raw.githubusercontent.com/pigfall/memo/master/nvim-install.sh | bash"
+
+RUN sudo chsh -s /bin/bash owner
 
 CMD ["bash","-c","sleep infinity"]
